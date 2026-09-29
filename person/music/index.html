@@ -1,11 +1,11 @@
 ---
 layout: default
 title: 100 Metal Albums
-description: My personal list of 100 metal albums, counted down one cover at a time.
+description: My personal list of 100 metal albums, one cover at a time.
 body_class: albums-page
 extra_css: /assets/css/albums.css
 # true: count down from the highest rank to #1. false: start at #1.
-countdown: true
+countdown: false
 ---
 {%- assign albums = site.data.metal_top100 | sort: "rank" -%}
 {%- if page.countdown %}{% assign albums = albums | reverse %}{% endif -%}
