@@ -1,7 +1,5 @@
 # My 100 metal albums  →  shown on /person/music/
 #
-# SAMPLE ENTRIES: replace these with your own list.
-#
 # One entry per album. Order in this file doesn't matter; `rank` does.
 # The page starts at #1 and counts up (change `countdown` in
 # person/music/index.html to flip that).
@@ -11,70 +9,102 @@
 #   artist  required
 #   year    optional
 #   genre   optional  shown next to the year
-#   cover   optional  path to the cover image, e.g. /assets/img/albums/paranoid.jpg
-#                     (square, ~1200px is plenty). Without one you get a
-#                     generated placeholder cover.
-#   tracks  optional  list of standout tracks
-#   blurb   optional  your write-up; Markdown works (use `blurb: |` for
-#                     multiple paragraphs)
+#   cover   optional  usually not needed: drop a square image into
+#                     assets/img/albums/ named after the artist and album
+#                     (vektor-terminal-redux.jpg) or just the album
+#                     (terminal-redux.jpg) and it's picked up on its own.
+#                     jpg, png and webp all work; ~1200px is plenty. Set
+#                     `cover:` only to use a different file. Albums with no
+#                     image get a generated placeholder cover.
+#                     Covers are fetched automatically by the "Album covers"
+#                     GitHub Action whenever this list changes.
+#   cover_url optional  tells that Action which image to download: a direct
+#                     image link, or the album's Wikipedia article. To swap
+#                     an existing cover, set this and delete the old file.
+#   tracks  optional  list of standout tracks, e.g. [Charging the Void, Recharging the Void]
+#   blurb   optional  your write-up; Markdown works. Use `blurb: >-` for one
+#                     paragraph, or `blurb: |` for several (blank line between).
 
 - rank: 1
-  album: Paranoid
-  artist: Black Sabbath
-  year: 1970
-  genre: Heavy metal
-  tracks: [War Pigs, Iron Man]
-  blurb: >-
-    Placeholder write-up. Say why this album made the list: the first time you
-    heard it, the riff that got you, where it sits among the rest. *Markdown*
-    works here, so italics and [links](https://en.wikipedia.org/wiki/Paranoid_(album))
-    are fine.
+  album: Terminal Redux
+  artist: Vektor
+  year: 2016
+  genre: Progressive thrash metal
 
 - rank: 2
-  album: Powerslave
-  artist: Iron Maiden
-  year: 1984
-  genre: Heavy metal
-  tracks: [Aces High, Rime of the Ancient Mariner]
-  blurb: >-
-    Placeholder write-up.
+  album: Rust in Peace
+  artist: Megadeth
+  year: 1990
+  genre: Thrash metal
 
 - rank: 3
-  album: Master of Puppets
-  artist: Metallica
-  year: 1986
-  genre: Thrash metal
-  tracks: [Battery, Master of Puppets]
-  blurb: |
-    Placeholder write-up with two paragraphs, to show how longer entries look.
-
-    Use `blurb: |` (a pipe) instead of `blurb: >-` when you want paragraph breaks,
-    and leave a blank line between paragraphs.
+  album: Absolute Elsewhere
+  artist: Blood Incantation
+  year: 2024
+  genre: Progressive death metal
 
 - rank: 4
   album: Symbolic
   artist: Death
   year: 1995
-  genre: Death metal
-  tracks: [Symbolic, Crystal Mountain]
-  blurb: >-
-    Placeholder write-up.
+  genre: Technical death metal
 
 - rank: 5
-  album: Blackwater Park
-  artist: Opeth
-  year: 2001
-  genre: Progressive death metal
-  tracks: [The Drapery Falls, Bleak]
-  blurb: >-
-    Placeholder write-up. A sentence or two is plenty, but longer entries work
-    too. The text scrolls over the cover while the cover stays put.
+  album: Outer Isolation
+  artist: Vektor
+  year: 2011
+  genre: Progressive thrash metal
 
 - rank: 6
-  album: Leviathan
-  artist: Mastodon
-  year: 2004
-  genre: Sludge metal
-  tracks: [Blood and Thunder, Hearts Alive]
-  blurb: >-
-    Placeholder write-up.
+  album: Seasons in the Abyss
+  artist: Slayer
+  year: 1990
+  genre: Thrash metal
+
+- rank: 7
+  album: Resver
+  artist: Command
+  year: 2024
+  genre: Blackened heavy metal
+
+- rank: 8
+  album: "...And Justice for All"
+  artist: Metallica
+  year: 1988
+  genre: Thrash metal
+
+- rank: 9
+  album: Painkiller
+  artist: Judas Priest
+  year: 1990
+  genre: Heavy metal
+
+- rank: 10
+  album: The Years of Decay
+  artist: Overkill
+  year: 1989
+  genre: Thrash metal
+
+- rank: 11
+  album: Unquestionable Presence
+  artist: Atheist
+  year: 1991
+  genre: Technical death metal
+
+- rank: 12
+  album: Nightfall
+  artist: Candlemass
+  year: 1987
+  genre: Doom metal
+
+- rank: 13
+  album: Black Future
+  artist: Vektor
+  year: 2009
+  genre: Progressive thrash metal
+
+- rank: 14
+  album: Nightmare Logic
+  artist: Power Trip
+  year: 2017
+  genre: Crossover thrash

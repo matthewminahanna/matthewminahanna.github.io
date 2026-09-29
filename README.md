@@ -56,7 +56,9 @@ Math is rendered with KaTeX. Use `$$ … $$` for both inline and display math. W
 
 ## 100 metal albums
 
-Each album is one entry in `_data/metal_top100.yml` (`rank`, `album`, `artist`, and optionally `year`, `genre`, `cover`, `tracks`, `blurb`). The entries there now are samples. Put square cover images (around 1200px, JPG) in `assets/img/albums/` and point `cover:` at them, e.g. `cover: /assets/img/albums/paranoid.jpg`. Albums without a cover get a generated placeholder.
+Each album is one entry in `_data/metal_top100.yml` (`rank`, `album`, `artist`, and optionally `year`, `genre`, `cover`, `tracks`, `blurb`). Covers are fetched for you. Whenever the album list changes, the **Album covers** GitHub Action (`.github/workflows/album-covers.yml`) looks up each album that doesn't have a cover yet and commits it to `assets/img/albums/`. It tries iTunes first, then Deezer, then MusicBrainz and the Cover Art Archive, and only uses a result when both the artist and the title match. The Actions tab shows what it found, and you can also run it by hand from there. If it picks the wrong image, give that album a `cover_url:` (a direct image link, or the album's Wikipedia page), delete the old file, and push; the Action downloads that one instead.
+
+To use your own image instead (or if it can't find one), drop a square image (around 1200px; JPG, PNG or WebP) into `assets/img/albums/`, named after the artist and album, e.g. `vektor-terminal-redux.jpg`, or just the album, e.g. `terminal-redux.jpg`. It's picked up with no list edits, and the Action never overwrites it. Albums without an image get a generated placeholder. To use a file with a different name, set `cover:` on that album.
 
 The page starts at #1 and counts up. Set `countdown: true` at the top of `person/music/index.html` to count down to #1 instead.
 

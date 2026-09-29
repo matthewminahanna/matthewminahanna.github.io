@@ -1,0 +1,19 @@
+{%- comment -%}
+  Sets `album_cover` to the album's cover image path, or leaves it empty.
+  Uses `cover:` from the album list if given. Otherwise looks in
+  assets/img/albums/ for an image named after the album, e.g.
+  vektor-terminal-redux.jpg or terminal-redux.png.
+{%- endcomment -%}
+{%- assign album_cover = include.album.cover -%}
+{%- unless album_cover -%}
+  {%- assign want_full = include.album.artist | append: " " | append: include.album.album | slugify -%}
+  {%- assign want_short = include.album.album | slugify -%}
+  {%- for f in site.static_files -%}
+    {%- unless f.path contains "/assets/img/albums/" %}{% continue %}{% endunless -%}
+    {%- assign have = f.basename | slugify -%}
+    {%- if have == want_full or have == want_short -%}
+      {%- assign album_cover = f.path -%}
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endunless -%}

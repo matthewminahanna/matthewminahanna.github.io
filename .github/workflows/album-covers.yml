@@ -1,0 +1,60 @@
+# Looks up and commits a cover image for every album in the metal list that
+# doesn't have one yet. Runs whenever the album list changes, or by hand from
+# the Actions tab. Covers you add yourself are never replaced.
+name: Album covers
+
+on:
+  push:
+    paths:
+      - _data/metal_top100.yml
+      - .github/scripts/fetch_covers.py
+      - .github/workflows/album-covers.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: album-covers-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  covers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install pyyaml pillow
+
+      - name: Fetch missing covers
+        run: python .github/scripts/fetch_covers.py
+
+      - name: Commit new covers
+        id: commit
+        run: |
+          git add assets/img/albums
+          if git diff --cached --quiet; then
+            echo "No new covers."
+            echo "committed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898900+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Add album covers"
+          git push origin HEAD:"$GITHUB_REF_NAME"
+          echo "committed=true" >> "$GITHUB_OUTPUT"
+
+      # Commits pushed by this workflow don't always start a Pages build on
+      # their own, so ask for one when new covers land on the live branch.
+      - name: Rebuild the site
+        if: steps.commit.outputs.committed == 'true' && github.ref_name == github.event.repository.default_branch
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api --method POST "repos/${{ github.repository }}/pages/builds"

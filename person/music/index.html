@@ -16,10 +16,11 @@ countdown: false
   {%- for a in albums %}
   {%- assign hue = a.rank | times: 37 | modulo: 45 | plus: 200 -%}
   {%- if a.hue %}{% assign hue = a.hue %}{% endif %}
-  <div class="stage-layer{% unless a.cover %} is-placeholder{% endunless %}" style="--hue: {{ hue }}"{% if a.cover %} data-cover="{{ a.cover | relative_url }}"{% endif %}>
+  {%- include album-cover-path.html album=a %}
+  <div class="stage-layer{% unless album_cover %} is-placeholder{% endunless %}" style="--hue: {{ hue }}"{% if album_cover %} data-cover="{{ album_cover | relative_url }}"{% endif %}>
     <div class="stage-ambient"></div>
     <div class="stage-art">
-      {%- unless a.cover %}{% include album-cover.html album=a %}{% endunless %}
+      {%- unless album_cover %}{% include album-cover.html album=a %}{% endunless %}
     </div>
     <div class="stage-shade"></div>
   </div>
