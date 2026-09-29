@@ -1,0 +1,61 @@
+# ------------------------------------------------------------------
+#  Site settings
+# ------------------------------------------------------------------
+title: Matthew Mina Hanna
+tagline: Research, mathematical writing, and a few things I love.
+description: >-
+  The personal site of Matthew Mina Hanna: research, math writing,
+  episode-by-episode TV reviews, and a personal list of 100 metal albums.
+url: https://matthewminahanna.github.io
+baseurl: ""
+github_username: matthewminahanna
+
+# This site has its own design; don't load GitHub's default theme.
+theme: null
+
+# ------------------------------------------------------------------
+#  Markdown + math
+#  Write math as $$ ... $$ (inline or on its own line). kramdown turns it
+#  into \( \) / \[ \] and KaTeX renders it in the browser.
+# ------------------------------------------------------------------
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+  math_engine: mathjax
+  syntax_highlighter: rouge
+
+# ------------------------------------------------------------------
+#  Content
+#   _posts/     -> Math Writing        (/math/<title>/)
+#   _shows/     -> one file per show   (/person/shows/<show>/)
+#   _episodes/  -> one file per review (/person/shows/<show>/<episode>/)
+#   _data/metal_top100.yml -> the album list on /person/music/
+# ------------------------------------------------------------------
+permalink: /math/:title/
+
+collections:
+  shows:
+    output: true
+    permalink: /person/shows/:path/
+  episodes:
+    output: true
+    permalink: /person/shows/:path/
+
+defaults:
+  - scope: { path: "", type: posts }
+    values: { layout: post, math: true }
+  - scope: { path: "", type: shows }
+    values: { layout: show }
+  - scope: { path: "", type: episodes }
+    values: { layout: episode }
+  - scope: { path: "" }
+    values: { layout: page }
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - .bundle
+  - .jekyll-cache

@@ -1,0 +1,55 @@
+---
+layout: default
+---
+{%- assign parts = page.path | split: "/" -%}
+{%- assign show_slug = page.show | default: parts[-2] -%}
+{%- assign show = site.shows | where: "slug", show_slug | first -%}
+{%- assign dir = "/" | append: show_slug | append: "/" -%}
+{%- assign episodes = site.episodes | where_exp: "e", "e.path contains dir" | sort: "path" -%}
+{%- assign i_prev = -1 -%}{%- assign i_next = -1 -%}{%- assign prev_ep = nil -%}{%- assign next_ep = nil -%}
+{%- for ep in episodes -%}
+  {%- if ep.url == page.url -%}
+    {%- assign i_prev = forloop.index0 | minus: 1 -%}
+    {%- assign i_next = forloop.index0 | plus: 1 -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- if i_prev >= 0 %}{% assign prev_ep = episodes[i_prev] %}{% endif -%}
+{%- if i_next > 0 %}{% assign next_ep = episodes[i_next] %}{% endif -%}
+
+<article class="episode">
+  <header class="page-head wrap wrap-narrow">
+    <p class="eyebrow">
+      <a href="{{ '/person/shows/' | relative_url }}">Shows</a>
+      <span aria-hidden="true">/</span>
+      {% if show %}<a href="{{ show.url | relative_url }}">{{ show.title }}</a>{% endif %}
+    </p>
+    <p class="ep-code ep-code-lg">{% include episode-code.html ep=page %}</p>
+    <h1 class="page-title">{{ page.title }}</h1>
+
+    <dl class="ep-facts">
+      {%- if page.aired %}<div><dt>Aired</dt><dd>{{ page.aired | date: "%B %-d, %Y" }}</dd></div>{% endif %}
+      {%- if page.writer %}<div><dt>Written by</dt><dd>{{ page.writer }}</dd></div>{% endif %}
+      {%- if page.director %}<div><dt>Directed by</dt><dd>{{ page.director }}</dd></div>{% endif %}
+      {%- if page.rating %}<div class="ep-facts-rating"><dt>My rating</dt><dd>{{ page.rating }}<small>/10</small></dd></div>{% endif %}
+    </dl>
+  </header>
+
+  <div class="prose wrap wrap-narrow">
+    {{ content }}
+  </div>
+
+  <nav class="pager wrap wrap-narrow" aria-label="Other episodes">
+    {%- if prev_ep %}
+    <a class="pager-link pager-prev" href="{{ prev_ep.url | relative_url }}">
+      <span class="pager-label">← {% include episode-code.html ep=prev_ep %}</span>
+      <span class="pager-title">{{ prev_ep.title }}</span>
+    </a>
+    {%- else %}<span></span>{% endif %}
+    {%- if next_ep %}
+    <a class="pager-link pager-next" href="{{ next_ep.url | relative_url }}">
+      <span class="pager-label">{% include episode-code.html ep=next_ep %} →</span>
+      <span class="pager-title">{{ next_ep.title }}</span>
+    </a>
+    {%- endif %}
+  </nav>
+</article>

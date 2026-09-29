@@ -1,0 +1,13 @@
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <p>© {{ site.time | date: "%Y" }} {{ site.title }}</p>
+    <ul class="footer-links">
+      <li><a href="{{ '/research/' | relative_url }}">Research</a></li>
+      <li><a href="{{ '/math/' | relative_url }}">Math Writing</a></li>
+      <li><a href="{{ '/person/' | relative_url }}">The Person</a></li>
+      {%- if site.github_username %}
+      <li><a href="https://github.com/{{ site.github_username }}">GitHub</a></li>
+      {%- endif %}
+    </ul>
+  </div>
+</footer>

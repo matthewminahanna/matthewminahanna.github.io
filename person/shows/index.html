@@ -1,0 +1,22 @@
+---
+title: Shows
+eyebrow: The Person
+lede: Episode-by-episode reviews.
+---
+{%- assign shows = site.shows | sort: "title" -%}
+<ul class="show-grid">
+  {%- for show in shows %}
+  {%- assign dir = "/" | append: show.slug | append: "/" -%}
+  {%- assign reviewed = site.episodes | where_exp: "e", "e.path contains dir" -%}
+  <li>
+    <a class="show-card" href="{{ show.url | relative_url }}">
+      <span class="show-card-years">{{ show.years }}</span>
+      <span class="show-card-title">{{ show.title }}</span>
+      {%- if show.tagline %}<span class="show-card-desc">{{ show.tagline }}</span>{% endif %}
+      <span class="show-card-count">
+        {{ reviewed.size }}{% if show.total_episodes %} / {{ show.total_episodes }}{% endif %} episodes reviewed
+      </span>
+    </a>
+  </li>
+  {%- endfor %}
+</ul>

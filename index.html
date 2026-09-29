@@ -1,9 +1,39 @@
-<html>
-<head>
-    <title>Matt's Personal Page</title>
-</head>
-<body>
-    <h1>Test Heading</h1>
-    <p>Test paragraph</p>
-</body>
-</html>
+---
+layout: default
+body_class: home
+---
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Hello, I'm</p>
+    <h1 class="hero-title">{{ site.title }}</h1>
+    <p class="hero-tagline">{{ site.tagline }}</p>
+  </div>
+</section>
+
+<section class="wrap sections" aria-label="Sections">
+  <a class="section-card" href="{{ '/research/' | relative_url }}">
+    <span class="section-num">01</span>
+    <span class="section-name">Research</span>
+    <span class="section-desc">Papers, projects, and talks.</span>
+    <span class="section-arrow" aria-hidden="true">→</span>
+  </a>
+  <a class="section-card" href="{{ '/math/' | relative_url }}">
+    <span class="section-num">02</span>
+    <span class="section-name">Math Writing</span>
+    <span class="section-desc">Notes, expositions, and problems I can't stop thinking about.</span>
+    <span class="section-arrow" aria-hidden="true">→</span>
+  </a>
+  <a class="section-card" href="{{ '/person/' | relative_url }}">
+    <span class="section-num">03</span>
+    <span class="section-name">The Person</span>
+    <span class="section-desc">Episode-by-episode show reviews and 100 metal albums.</span>
+    <span class="section-arrow" aria-hidden="true">→</span>
+  </a>
+</section>
+
+{%- if site.posts.size > 0 %}
+<section class="wrap latest">
+  <h2 class="section-heading">Latest math writing</h2>
+  {% include post-list.html posts=site.posts limit=3 %}
+</section>
+{%- endif %}

@@ -1,0 +1,80 @@
+# My 100 metal albums  →  shown on /person/music/
+#
+# SAMPLE ENTRIES: replace these with your own list.
+#
+# One entry per album. Order in this file doesn't matter; `rank` does.
+# The page counts down from the highest rank to #1 (change `countdown`
+# in person/music/index.html to flip that).
+#
+#   rank    required  1–100
+#   album   required
+#   artist  required
+#   year    optional
+#   genre   optional  shown next to the year
+#   cover   optional  path to the cover image, e.g. /assets/img/albums/paranoid.jpg
+#                     (square, ~1200px is plenty). Without one you get a
+#                     generated placeholder cover.
+#   tracks  optional  list of standout tracks
+#   blurb   optional  your write-up; Markdown works (use `blurb: |` for
+#                     multiple paragraphs)
+
+- rank: 100
+  album: Leviathan
+  artist: Mastodon
+  year: 2004
+  genre: Sludge metal
+  tracks: [Blood and Thunder, Hearts Alive]
+  blurb: >-
+    Placeholder write-up. Say why this album made the list: the first time you
+    heard it, the riff that got you, where it sits among the rest. *Markdown*
+    works here, so italics and [links](https://en.wikipedia.org/wiki/Leviathan_(Mastodon_album))
+    are fine.
+
+- rank: 99
+  album: Blackwater Park
+  artist: Opeth
+  year: 2001
+  genre: Progressive death metal
+  tracks: [The Drapery Falls, Bleak]
+  blurb: >-
+    Placeholder write-up. A sentence or two is plenty, but longer entries work
+    too. The text scrolls over the cover while the cover stays put.
+
+- rank: 98
+  album: Symbolic
+  artist: Death
+  year: 1995
+  genre: Death metal
+  tracks: [Symbolic, Crystal Mountain]
+  blurb: >-
+    Placeholder write-up.
+
+- rank: 97
+  album: Master of Puppets
+  artist: Metallica
+  year: 1986
+  genre: Thrash metal
+  tracks: [Battery, Master of Puppets]
+  blurb: |
+    Placeholder write-up with two paragraphs, to show how longer entries look.
+
+    Use `blurb: |` (a pipe) instead of `blurb: >-` when you want paragraph breaks,
+    and leave a blank line between paragraphs.
+
+- rank: 96
+  album: Powerslave
+  artist: Iron Maiden
+  year: 1984
+  genre: Heavy metal
+  tracks: [Aces High, Rime of the Ancient Mariner]
+  blurb: >-
+    Placeholder write-up.
+
+- rank: 95
+  album: Paranoid
+  artist: Black Sabbath
+  year: 1970
+  genre: Heavy metal
+  tracks: [War Pigs, Iron Man]
+  blurb: >-
+    Placeholder write-up.

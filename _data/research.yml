@@ -1,0 +1,22 @@
+# Research page content. Each group becomes a section on /research/.
+# Fields per item: title, year, authors, venue, summary, url, links (label + url).
+# Everything except title is optional. These entries are placeholders.
+
+- section: Papers
+  items:
+    - title: Title of a paper or preprint
+      year: 2026
+      authors: Matthew Mina Hanna, Coauthor Name
+      venue: arXiv preprint
+      summary: One or two sentences on the main result, written for a curious non-specialist.
+      links:
+        - label: arXiv
+          url: https://arxiv.org/
+        - label: PDF
+          url: "#"
+
+- section: Talks
+  items:
+    - title: Title of a talk
+      year: 2026
+      venue: Seminar or conference name
