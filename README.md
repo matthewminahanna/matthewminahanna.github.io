@@ -56,7 +56,7 @@ Math is rendered with KaTeX. Use `$$ … $$` for both inline and display math. W
 
 ## 100 metal albums
 
-Each album is one entry in `_data/metal_top100.yml` (`rank`, `album`, `artist`, and optionally `year`, `genre`, `cover`, `tracks`, `blurb`). The entries there now are samples. Put square cover images (around 1200px, JPG) in `assets/img/albums/` and point `cover:` at them, e.g. `cover: /assets/img/albums/paranoid.jpg`. Albums without a cover get a generated placeholder.
+Each album is one entry in `_data/metal_top100.yml` (`rank`, `album`, `artist`, and optionally `year`, `genre`, `cover`, `tracks`, `blurb`). Put square cover images (around 1200px, JPG) in `assets/img/albums/` and point `cover:` at them, e.g. `cover: /assets/img/albums/terminal-redux.jpg`. Albums without a cover get a generated placeholder.
 
 The page starts at #1 and counts up. Set `countdown: true` at the top of `person/music/index.html` to count down to #1 instead.
 
