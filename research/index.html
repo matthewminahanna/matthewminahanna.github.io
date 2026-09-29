@@ -1,0 +1,32 @@
+---
+title: Research
+eyebrow: Work
+lede: A short statement of what you work on goes here. Edit research/index.html for this text and _data/research.yml for the list below.
+---
+{%- for group in site.data.research %}
+<section class="research-group">
+  <h2 class="section-heading">{{ group.section }}</h2>
+  <ol class="research-list">
+    {%- for item in group.items %}
+    <li class="research-item">
+      <p class="research-year">{{ item.year }}</p>
+      <div>
+        <h3 class="research-title">
+          {%- if item.url %}<a href="{{ item.url }}">{{ item.title }}</a>{% else %}{{ item.title }}{% endif -%}
+        </h3>
+        {%- if item.authors %}<p class="research-authors">{{ item.authors }}</p>{% endif %}
+        {%- if item.venue %}<p class="research-venue">{{ item.venue }}</p>{% endif %}
+        {%- if item.summary %}<p class="research-summary">{{ item.summary }}</p>{% endif %}
+        {%- if item.links %}
+        <ul class="research-links">
+          {%- for link in item.links %}
+          <li><a href="{{ link.url }}">{{ link.label }}</a></li>
+          {%- endfor %}
+        </ul>
+        {%- endif %}
+      </div>
+    </li>
+    {%- endfor %}
+  </ol>
+</section>
+{%- endfor %}

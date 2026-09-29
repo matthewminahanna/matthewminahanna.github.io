@@ -1,0 +1,105 @@
+---
+layout: default
+title: 100 Metal Albums
+description: My personal list of 100 metal albums, one cover at a time.
+body_class: albums-page
+extra_css: /assets/css/albums.css
+# true: count down from the highest rank to #1. false: start at #1.
+countdown: false
+---
+{%- assign albums = site.data.metal_top100 | sort: "rank" -%}
+{%- if page.countdown %}{% assign albums = albums | reverse %}{% endif -%}
+{%- assign first = albums | first -%}
+{%- assign last = albums | last -%}
+<!-- The cover art that slides in behind the text as you scroll. -->
+<div class="stage" aria-hidden="true">
+  {%- for a in albums %}
+  {%- assign hue = a.rank | times: 37 | modulo: 45 | plus: 200 -%}
+  {%- if a.hue %}{% assign hue = a.hue %}{% endif %}
+  <div class="stage-layer{% unless a.cover %} is-placeholder{% endunless %}" style="--hue: {{ hue }}"{% if a.cover %} data-cover="{{ a.cover | relative_url }}"{% endif %}>
+    <div class="stage-ambient"></div>
+    <div class="stage-art">
+      {%- unless a.cover %}{% include album-cover.html album=a %}{% endunless %}
+    </div>
+    <div class="stage-shade"></div>
+  </div>
+  {%- endfor %}
+</div>
+
+<section class="albums-intro">
+  <div class="wrap">
+    <p class="eyebrow"><a href="{{ '/person/' | relative_url }}">The Person</a><span aria-hidden="true">/</span>Music</p>
+    <h1 class="albums-title"><span class="outline">100</span> Metal<br>Albums</h1>
+    <p class="albums-lede">
+      My personal list, {% if page.countdown %}counting down from No.&nbsp;{{ first.rank }} to No.&nbsp;{{ last.rank }}{% else %}from No.&nbsp;{{ first.rank }} to No.&nbsp;{{ last.rank }}{% endif %}.
+      Scroll, and each cover slides in behind the write-up.
+    </p>
+    <p class="albums-actions">
+      <a class="btn" href="#no-{{ first.rank }}">Start <span aria-hidden="true">↓</span></a>
+      <a class="btn btn-ghost" href="#the-list">See the whole list</a>
+    </p>
+  </div>
+</section>
+
+<div class="albums">
+  {%- for a in albums %}
+  <article class="album" data-rank="{{ a.rank }}" data-title="{{ a.album | escape }}">
+    <span class="album-anchor" id="no-{{ a.rank }}"></span>
+    <div class="album-inner">
+      <div class="album-cover-inline">{% include album-cover.html album=a %}</div>
+      <div class="album-text">
+        <p class="album-rank"><span class="album-rank-label">No.</span>{{ a.rank }}</p>
+        <h2 class="album-title">{{ a.album }}</h2>
+        <p class="album-artist">{{ a.artist }}</p>
+        {%- if a.year or a.genre %}
+        <p class="album-meta">
+          {%- if a.year %}<span>{{ a.year }}</span>{% endif %}
+          {%- if a.year and a.genre %}<span aria-hidden="true">·</span>{% endif %}
+          {%- if a.genre %}<span>{{ a.genre }}</span>{% endif %}
+        </p>
+        {%- endif %}
+        {%- if a.blurb %}
+        <div class="album-blurb">{{ a.blurb | markdownify }}</div>
+        {%- endif %}
+        {%- if a.tracks %}
+        <div class="album-tracks">
+          <p class="album-tracks-label">Key tracks</p>
+          <ul>{% for t in a.tracks %}<li>{{ t }}</li>{% endfor %}</ul>
+        </div>
+        {%- endif %}
+      </div>
+    </div>
+  </article>
+  {%- endfor %}
+</div>
+
+<section class="albums-index" id="the-list">
+  <div class="wrap">
+    <h2 class="section-heading">The whole list</h2>
+    <ol class="index-grid">
+      {%- for a in albums %}
+      <li>
+        <a class="index-item" href="#no-{{ a.rank }}">
+          <span class="index-cover">{% include album-cover.html album=a %}</span>
+          <span class="index-rank">{{ a.rank }}</span>
+          <span class="index-album">{{ a.album }}</span>
+          <span class="index-artist">{{ a.artist }}</span>
+        </a>
+      </li>
+      {%- endfor %}
+    </ol>
+  </div>
+</section>
+
+<div class="albums-hud" hidden>
+  <button class="hud-btn" type="button" data-step="-1" aria-label="Previous album">
+    <svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M2.5 7.5 6 4l3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <p class="hud-now"><span class="hud-rank"></span><span class="hud-title"></span></p>
+  <button class="hud-btn" type="button" data-step="1" aria-label="Next album">
+    <svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <span class="hud-bar" aria-hidden="true"><span></span></span>
+</div>
+
+<script defer src="{{ '/assets/js/albums.js' | relative_url }}"></script>

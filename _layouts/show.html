@@ -1,0 +1,51 @@
+---
+layout: default
+---
+{%- assign dir = "/" | append: page.slug | append: "/" -%}
+{%- assign episodes = site.episodes | where_exp: "e", "e.path contains dir" | sort: "path" -%}
+{%- assign seasons = episodes | group_by: "season" -%}
+
+<article class="show">
+  <header class="page-head wrap">
+    <p class="eyebrow"><a href="{{ '/person/shows/' | relative_url }}">Shows</a></p>
+    <h1 class="page-title">{{ page.title }}</h1>
+    <p class="meta">
+      {%- if page.years %}<span>{{ page.years }}</span>{% endif %}
+      {%- if page.creator %}<span class="meta-sep" aria-hidden="true">/</span><span>Created by {{ page.creator }}</span>{% endif %}
+      {%- if page.total_episodes %}<span class="meta-sep" aria-hidden="true">/</span><span>{{ episodes.size }} of {{ page.total_episodes }} episodes reviewed</span>{% endif %}
+    </p>
+    {%- if page.total_episodes %}
+    {%- assign pct = episodes.size | times: 100.0 | divided_by: page.total_episodes -%}
+    <div class="progress" role="img" aria-label="{{ episodes.size }} of {{ page.total_episodes }} episodes reviewed">
+      <span style="width: {{ pct }}%"></span>
+    </div>
+    {%- endif %}
+  </header>
+
+  <div class="wrap show-body">
+    {%- if content != "" %}
+    <div class="prose show-intro">{{ content }}</div>
+    {%- endif %}
+
+    {%- if episodes.size == 0 %}
+    <p class="empty">No episode reviews yet.</p>
+    {%- endif %}
+
+    {%- for season in seasons %}
+    <section class="season" aria-labelledby="season-{{ season.name }}">
+      <h2 class="season-title" id="season-{{ season.name }}">Season {{ season.name }}</h2>
+      <ol class="episode-list">
+        {%- for ep in season.items %}
+        <li>
+          <a class="episode-row" href="{{ ep.url | relative_url }}">
+            <span class="ep-code">{% include episode-code.html ep=ep %}</span>
+            <span class="ep-title">{{ ep.title }}</span>
+            {%- if ep.rating %}<span class="ep-rating" aria-label="Rated {{ ep.rating }} out of 10">{{ ep.rating }}<small>/10</small></span>{% endif %}
+          </a>
+        </li>
+        {%- endfor %}
+      </ol>
+    </section>
+    {%- endfor %}
+  </div>
+</article>

@@ -1,0 +1,1 @@
+{%- assign s = include.ep.season | plus: 0 -%}{%- assign e = include.ep.episode | plus: 0 -%}S{% if s < 10 %}0{% endif %}{{ s }}E{% if e < 10 %}0{% endif %}{{ e }}

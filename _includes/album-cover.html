@@ -1,0 +1,11 @@
+{%- assign a = include.album -%}
+{%- assign hue = a.rank | times: 37 | modulo: 45 | plus: 200 -%}
+{%- if a.hue %}{% assign hue = a.hue %}{% endif -%}
+{%- if a.cover -%}
+<img class="cover-img" src="{{ a.cover | relative_url }}" alt="Cover of {{ a.album | escape }} by {{ a.artist | escape }}" loading="lazy" decoding="async">
+{%- else -%}
+<div class="cover-ph" style="--hue: {{ hue }}" role="img" aria-label="{{ a.album | escape }} by {{ a.artist | escape }} (placeholder cover)">
+  <span class="cover-ph-artist">{{ a.artist }}</span>
+  <span class="cover-ph-album">{{ a.album }}</span>
+</div>
+{%- endif -%}

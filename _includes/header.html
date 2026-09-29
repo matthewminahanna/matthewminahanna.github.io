@@ -1,0 +1,53 @@
+{%- assign url = page.url -%}
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="{{ '/' | relative_url }}" aria-label="{{ site.title }}, home">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">{{ site.title }}</span>
+    </a>
+
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span class="nav-toggle-bars" aria-hidden="true"></span>
+      <span class="visually-hidden">Menu</span>
+    </button>
+
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a class="nav-link{% if url contains '/research/' %} is-current{% endif %}" href="{{ '/research/' | relative_url }}">Research</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link{% if url contains '/math/' %} is-current{% endif %}" href="{{ '/math/' | relative_url }}">Math Writing</a>
+        </li>
+        <li class="nav-item has-menu">
+          <a class="nav-link{% if url contains '/person/' %} is-current{% endif %}" href="{{ '/person/' | relative_url }}">The Person</a>
+          <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-person">
+            <svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="visually-hidden">Show The Person menu</span>
+          </button>
+
+          <div class="menu-panel" id="menu-person">
+            <div class="menu-col">
+              <a class="menu-heading" href="{{ '/person/shows/' | relative_url }}">Shows</a>
+              <p class="menu-note">Episode-by-episode reviews</p>
+              <ul class="menu-links">
+                {%- assign shows = site.shows | sort: "title" -%}
+                {%- for show in shows %}
+                <li><a href="{{ show.url | relative_url }}">{{ show.title }}</a></li>
+                {%- endfor %}
+                <li><a class="menu-all" href="{{ '/person/shows/' | relative_url }}">All shows <span aria-hidden="true">→</span></a></li>
+              </ul>
+            </div>
+            <div class="menu-col">
+              <a class="menu-heading" href="{{ '/person/music/' | relative_url }}">Music</a>
+              <p class="menu-note">Albums I keep coming back to</p>
+              <ul class="menu-links">
+                <li><a href="{{ '/person/music/' | relative_url }}">100 Metal Albums</a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,10 @@
+---
+title: Math Writing
+eyebrow: Writing
+lede: Notes, expositions, and problems I can't stop thinking about.
+---
+{%- if site.posts.size > 0 %}
+{% include post-list.html posts=site.posts %}
+{%- else %}
+<p class="empty">Nothing here yet.</p>
+{%- endif %}
