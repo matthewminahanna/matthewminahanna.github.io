@@ -16,6 +16,11 @@
 #                     jpg, png and webp all work; ~1200px is plenty. Set
 #                     `cover:` only to use a different file. Albums with no
 #                     image get a generated placeholder cover.
+#                     Covers are fetched automatically by the "Album covers"
+#                     GitHub Action whenever this list changes.
+#   cover_url optional  tells that Action which image to download: a direct
+#                     image link, or the album's Wikipedia article. To swap
+#                     an existing cover, set this and delete the old file.
 #   tracks  optional  list of standout tracks, e.g. [Charging the Void, Recharging the Void]
 #   blurb   optional  your write-up; Markdown works. Use `blurb: >-` for one
 #                     paragraph, or `blurb: |` for several (blank line between).
@@ -55,6 +60,7 @@
   artist: Slayer
   year: 1990
   genre: Thrash metal
+  cover_url: https://en.wikipedia.org/wiki/Seasons_in_the_Abyss  # store copy has a Parental Advisory sticker
 
 - rank: 7
   album: Resver

@@ -10,6 +10,11 @@ stores come first because their artwork is the label's official cover; the
 Cover Art Archive is community-run and its main image for an album is
 sometimes a promo disc or a scan of another edition. A result is only used
 when both the artist and the album title match.
+
+To pick a specific image instead, give the album a `cover_url:` in the list:
+either a direct link to an image or the album's Wikipedia article, whose
+infobox cover is used. To replace a cover that's already there, delete its
+file as well.
 """
 import io
 import json
@@ -130,6 +135,24 @@ def from_deezer(artist, album):
     return None
 
 
+def from_url(url):
+    """Download `url`, or the infobox image if it's a Wikipedia article."""
+    wiki = re.match(r"https?://([a-z-]+)\.(?:m\.)?wikipedia\.org/wiki/([^?#]+)", url)
+    if wiki:
+        api = f"https://{wiki[1]}.wikipedia.org/w/api.php?" + urllib.parse.urlencode({
+            "action": "query", "format": "json", "redirects": 1,
+            "prop": "pageimages", "piprop": "original", "pilicense": "any",
+            "titles": urllib.parse.unquote(wiki[2]).replace("_", " "),
+        })
+        pages = fetch_json(api).get("query", {}).get("pages", {})
+        sources = [p["original"]["source"] for p in pages.values() if "original" in p]
+        if not sources:
+            return None
+        url = sources[0]
+    image = fetch(url)
+    return (image, url) if image else None
+
+
 def has_cover(entry, existing):
     if entry.get("cover"):
         return True
@@ -155,16 +178,21 @@ def main():
         label = f"#{entry['rank']} {album} by {artist}"
         if has_cover(entry, existing):
             continue
+        if entry.get("cover_url"):
+            sources = [lambda a, b, url=str(entry["cover_url"]): from_url(url)]
+        else:
+            sources = [from_itunes, from_deezer, from_cover_art_archive]
         found = None
-        for source in (from_itunes, from_deezer, from_cover_art_archive):
+        for source in sources:
             try:
                 found = source(artist, album)
             except Exception as err:  # one flaky source shouldn't stop the rest
-                print(f"  {source.__name__} failed for {label}: {err}")
+                print(f"  {getattr(source, '__name__', 'cover_url')} failed for {label}: {err}")
             if found:
                 break
         if not found:
-            report.append(f"- {label}: **not found**, add it by hand")
+            hint = "check its cover_url" if entry.get("cover_url") else "add it by hand or set cover_url"
+            report.append(f"- {label}: **not found**, {hint}")
             print(f"NOT FOUND  {label}")
             continue
         data, where = found
