@@ -9,9 +9,13 @@
 #   artist  required
 #   year    optional
 #   genre   optional  shown next to the year
-#   cover   optional  path to the cover image, e.g. /assets/img/albums/terminal-redux.jpg
-#                     (square, ~1200px is plenty). Without one you get a
-#                     generated placeholder cover.
+#   cover   optional  usually not needed: drop a square image into
+#                     assets/img/albums/ named after the artist and album
+#                     (vektor-terminal-redux.jpg) or just the album
+#                     (terminal-redux.jpg) and it's picked up on its own.
+#                     jpg, png and webp all work; ~1200px is plenty. Set
+#                     `cover:` only to use a different file. Albums with no
+#                     image get a generated placeholder cover.
 #   tracks  optional  list of standout tracks, e.g. [Charging the Void, Recharging the Void]
 #   blurb   optional  your write-up; Markdown works. Use `blurb: >-` for one
 #                     paragraph, or `blurb: |` for several (blank line between).
