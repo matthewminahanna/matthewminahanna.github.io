@@ -5,8 +5,11 @@ Covers are saved to assets/img/albums/<artist>-<album>.jpg, the name the site
 looks for. Albums that already have an image there (or a `cover:` entry) are
 left alone, so a cover you add by hand always wins.
 
-Sources, in order: MusicBrainz + Cover Art Archive, iTunes, Deezer. A result
-is only used when both the artist and the album title match.
+Sources, in order: iTunes, Deezer, then MusicBrainz + Cover Art Archive. The
+stores come first because their artwork is the label's official cover; the
+Cover Art Archive is community-run and its main image for an album is
+sometimes a promo disc or a scan of another edition. A result is only used
+when both the artist and the album title match.
 """
 import io
 import json
@@ -153,7 +156,7 @@ def main():
         if has_cover(entry, existing):
             continue
         found = None
-        for source in (from_cover_art_archive, from_itunes, from_deezer):
+        for source in (from_itunes, from_deezer, from_cover_art_archive):
             try:
                 found = source(artist, album)
             except Exception as err:  # one flaky source shouldn't stop the rest
